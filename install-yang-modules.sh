@@ -16,3 +16,8 @@ git clone https://github.com/openconfig/public
 git clone https://github.com/YangModels/yang
 # Download ietf models
 git clone https://github.com/openconfig/yang oc-yang
+
+export GOPATH=$HOME/go
+
+# Tools for compiling
+ go get github.com/openconfig/ygot/generator
