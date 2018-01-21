@@ -1,0 +1,49 @@
+
+module faucet-configuration {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://github.com/faucetsdn";
+
+  // Assign this module a prefix to be used by other modules, when imported.
+//  prefix "oc-office-ap";
+  prefix "faucet-conf";
+
+  import ietf-inet-types {
+    prefix "inet";
+  }
+//https://github.com/YangModels/yang/blob/master/experimental/ietf-extracted-YANG-modules
+// import ietf-packet-fields {
+//    prefix packet-fields;
+//  }
+
+  // meta
+  organization "none.";
+
+  contact
+    "none";
+
+  description
+    "This module defines an initial setp towards faucet gnmi.";
+
+  revision "2018-01-21" {
+    description
+      "Initial version";
+    reference "0.0.1";
+  }
+
+  grouping faucet-top {
+    description
+      "Top-level grouping for faucet config.";
+
+    leaf hostname {
+      type inet:host;
+      description
+        "faucet hostname";
+    }
+
+  }
+
+  uses faucet-top;
+}
