@@ -10,6 +10,7 @@
 # Download OpenConfig models from 
 cd ~
 mkdir yangmodules
+cd yangmodules
 # OpenConfig modules
 git clone https://github.com/openconfig/public
 # Download Yang moduels from 
