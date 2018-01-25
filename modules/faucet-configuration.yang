@@ -1,0 +1,113 @@
+module faucet-configuration {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://faucet.com/yang/faucet/faucet-configuration-file";
+
+  // Assign this module a prefix to be used by other modules, when imported.
+  prefix "faucet-conf";
+
+  import ietf-access-control-list {
+    prefix acl;
+  }
+  import ietf-yang-types {
+    prefix yang;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  // meta
+  organization "VUW.";
+
+  contact
+    "VUW";
+
+  description
+    "This module defines the top level faucet Configurations.";
+
+ revision 2018-01-17 {
+    description
+      "Initial proposed.";
+    reference
+      "non";
+  }
+  
+  grouping faucet-conf-top {
+    description
+      "Top-level grouping for faucet config.";
+
+    leaf hostname {
+      type inet:host;
+      description
+        "Faucet domain name";
+    }
+
+    leaf last-update {
+      type yang:date-and-time;
+      mandatory true;
+      description
+        "This is intended to be when the current config file
+         was updated.";
+    }    
+
+   uses acls;
+  }
+  
+grouping acls{
+ description
+      "A grouping for access lists in the context of top level acls.";
+
+   container egress-policy {
+      description
+        "The policies that should be enforced on traffic
+         coming from the port.";
+      uses access-lists;
+    }
+    container ingress-policy {
+      description
+        "The policies that should be enforced on traffic
+         going to the port.";
+      uses access-lists;
+    }    
+  }
+
+  grouping access-lists {
+    description
+      "A grouping for access lists in the context of device
+       policy.";
+    container access-lists {
+      description
+        "The access lists that should be applied to traffic
+           to or from the device.";
+      list access-list {
+        key "acl-name acl-type";
+        description
+          "Each entry on this list refers to an ACL that
+             should be present in the overall access list
+             data model. Each ACL is identified by name and
+             type.";
+        leaf acl-name {
+          type leafref {
+            path "/acl:access-lists/acl:acl/acl:acl-name";
+          }
+          description
+            "The name of the ACL for this entry.";
+        }
+        leaf acl-type {
+          type identityref {
+            base acl:acl-base;
+          }
+          description
+            "The type of the ACL for this entry.  The name is
+             scoped ONLY to the MUD file, and may not be unique
+             in any other circumstance.";
+        }
+      }
+    }
+  }
+
+
+  uses faucet-conf-top;
+}
