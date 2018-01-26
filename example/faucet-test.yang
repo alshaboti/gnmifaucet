@@ -1,0 +1,51 @@
+module faucet-configuration {
+
+  yang-version "1";
+
+  // namespace
+  namespace "http://github.com/faucetsdn";
+
+  prefix "faucet-conf";
+
+  import ietf-inet-types {
+    prefix "inet";
+  }
+// from https://github.com/YangModels/yang/tree/master/experimental/ietf-extracted-YANG-modules
+ import ietf-packet-fields {
+    prefix packet-fields;
+  }
+
+  // meta
+  organization "faucet, Inc.";
+
+  contact
+    "non";
+
+  description
+    "This module is an experimental module.";
+
+  revision "2018-01-22" {
+    description
+      "Initial version";
+    reference "0.0.1";
+  }
+
+  grouping faucet-top {
+    description
+      "top level";
+
+    leaf hostname {
+      type inet:host;
+      description
+        "faucet host";
+    }
+
+  container ipv4-acl {
+      uses packet-fields:acl-ipv4-header-fields;
+      description
+           "IPv4 headers.";
+      }
+  }
+
+  uses faucet-top;
+}
