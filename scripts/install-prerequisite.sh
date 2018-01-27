@@ -6,6 +6,11 @@
 # To use this, run thr scripts directory:
 #    ./install-yang-modules.sh
 
+#install go
+wget https://storage.googleapis.com/golang/go1.7.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.7.linux-armv6l.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+
 # OpenConfig modules
 # Download OpenConfig models from 
 cd ~
@@ -20,5 +25,5 @@ git clone https://github.com/openconfig/yang oc-yang
 
 export GOPATH=$HOME/go
 
-# Tools for compiling
+# Tools for compiling yang to .go (ygot)
  go get github.com/openconfig/ygot/generator
