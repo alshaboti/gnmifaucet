@@ -11,7 +11,7 @@ YANG_CONVERTER=$GOPATH/src/github.com/openconfig/ygot/generator/generator.go
 YANG_MODELS=$HOME/yangmodules/public/release/models,$HOME/yangmodules/yang/experimental/ietf-extracted-YANG-modules
 # Download ietf models from https://github.com/openconfig/yang/tree/master/standard/ietf/RFC
 IETF_MODELS=$HOME/yangmodules/oc-yang/standard/ietf/RFC
-OWCA_TOP_MODULE=../models/faucet-configuration.yang
+OWCA_TOP_MODULE=../models/simple-faucet-configuration.yang
 
 # Output path
 OUTPUT_PACKAGE_NAME=ocstruct
