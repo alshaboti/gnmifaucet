@@ -1,4 +1,4 @@
-module faucet-configuration {
+module faucet-configuration-acl {
 
   yang-version "1";
 
@@ -6,7 +6,7 @@ module faucet-configuration {
   namespace "http://faucet.com/yang/faucet/faucet-configuration-file";
 
   // Assign this module a prefix to be used by other modules, when imported.
-  prefix "faucet-conf";
+  prefix "faucet-conf-acl";
 
   import ietf-access-control-list {
     prefix acl;
