@@ -33,15 +33,22 @@ module faucet-configuration {
     reference "0.0.1";
   }
 
-  grouping faucet-top {
+ grouping faucet-top {
     description
-      "Top-level grouping for faucet config.";
+      "Top-level grouping for AP configuration & state data.";
 
     leaf hostname {
       type inet:host;
       description
-        "faucet hostname";
+        "AP FQDN";
     }
+
+  container ipv4-acl {
+    uses packet-fields:acl-ip-header-fields;
+    uses packet-fields:acl-ipv4-header-fields;
+    description
+      "Rule set that supports IPv4 headers.";
+  }
 
   }
 
