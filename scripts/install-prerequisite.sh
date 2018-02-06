@@ -24,6 +24,7 @@ git clone https://github.com/YangModels/yang
 git clone https://github.com/openconfig/yang oc-yang
 
 export GOPATH=$HOME/go
+export PATH=$PATH:/usr/local/go/bin
 
 # Tools for compiling yang to .go (ygot)
  go get github.com/openconfig/ygot/generator
