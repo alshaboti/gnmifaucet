@@ -27,5 +27,5 @@ go run $YANG_CONVERTER \
 -output_file=$OUTPUT_FILE_PATH \
 $OWCA_TOP_MODULE
 
-env GOOS=linux GOARCH=arm CC=arm-linux-gnueabi-gcc go build -o $GOPATH/bin/faucet_agent agent/agent.go
+env GOOS=linux GOARCH=arm CC=arm-linux-gnueabi-gcc go build -o $GOPATH/bin/faucet_agent $HOME/link022/agent/agent.go
 
