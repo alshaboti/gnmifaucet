@@ -39,3 +39,7 @@ env GOOS=linux GOARCH=arm CC=arm-linux-gnueabi-gcc go build -o $GOPATH/bin/fauce
 
 echo ".go file and agent.go compiled  to binary file !"
 
+#run faucet_agent using 
+#sudo env PATH=$PATH faucet_agent -ca=link022/demo/cert/server/ca.crt -cert=link022/demo/cert/server/server.crt -key=link022/demo/cert/server/server.key  -gnmi_port=8080 -logtostderr
+#and gnmi_set using 
+# sudo env PATH=$PATH gnmi_set -ca=cert/client/ca.crt -cert=cert/client/client.crt -key=cert/client/client.key -target_name=www.example.com -target_addr=192.168.11.5:8080 -replace=/:@faucet-configuration.json
