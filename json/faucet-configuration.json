@@ -1,0 +1,66 @@
+
+{"vlans": [
+         {"vid":100, 
+          "name":"clock"}
+        ],
+"acls":[
+    {
+    "acl-name": "acl1",
+    "acle": [
+    {
+     "acle-name": "rule1",
+     "actions": "allow",
+
+     "match": {
+     "ethacl" : {
+         "ethertype": "ipv4",
+         "source-mac-address": "ff:cc:ee:33:33:22"    
+      },
+     "ipv4acl":{
+        "destination-ipv4-network": "192.168.1.0/24",
+        "source-ipv4": "192.168.1.22",
+        "source-ipv4-network": "192.168.2.0/24",
+        "destination-ipv4": "192.168.1.23"
+     },
+    "tcpacl": {
+       "port": 23
+     }
+     }
+   },
+    {
+     "acle-name": "rule2",
+     "actions": "disable",
+
+     "match": {
+     "ethacl" : {
+         "ethertype": "ipv4",
+         "source-mac-address": "ff:cc:ee:33:33:99"    
+      }
+     }
+   }    
+   ]
+   }
+  ],
+"dps":[
+  { 
+  "dp-name": "sw1",
+  "dp-id": "66:55:44:33:22:11",
+  "hardware": "Open vSwitch",
+  "interfaces" :
+  [{
+   "number": 1,
+   "name": "port1",
+   "description": "first port",
+   "acl-in": "acl1"
+   },
+   {
+   "number": 2,
+   "name": "port2",
+   "description": "second port",
+   "acl-in": "acl1"
+   }]
+  }
+
+ ]
+}
+
