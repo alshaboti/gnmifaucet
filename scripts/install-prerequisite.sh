@@ -7,8 +7,10 @@
 #    ./install-yang-modules.sh
 
 #install go
-wget https://storage.googleapis.com/golang/go1.7.linux-armv6l.tar.gz
-sudo tar -C /usr/local -xzf go1.7.linux-armv6l.tar.gz
+wget https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
+#go1.7.linux-armv6l.tar.gz
+sudo tar -C /usr/local -xzf go1.7.linux-amd64.tar.gz
+#go1.7.linux-armv6l.tar.gz go1.2.1.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 
 # OpenConfig modules
