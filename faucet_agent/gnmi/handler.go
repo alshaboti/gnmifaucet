@@ -19,9 +19,9 @@ import (
 
 //#     "github.com/google/link022/agent/context"
 //#     "github.com/google/link022/agent/service"
-        "github.com/google/link022/agent/syscmd"
+        "github.com/google/alshaboti/gnmifaucet/faucet_agent/syscmd"
 //#     "github.com/google/link022/agent/util/ocutil"
-        "github.com/google/link022/generated/ocstruct"
+        "github.com/alshaboti/gnmifaucet/generated/ocstruct"
         "github.com/openconfig/ygot/ygot"
 
         log "github.com/golang/glog"

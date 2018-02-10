@@ -25,10 +25,10 @@ import (
 	"os"
 
 	"github.com/google/gnxi/utils/credentials"
-	"github.com/google/link022/agent/context"
-	"github.com/google/link022/agent/controller"
-	"github.com/google/link022/agent/gnmi"
-	"github.com/google/link022/agent/syscmd"
+	"github.com/alshaboti/gnmifaucet/faucet_agent/context"
+	"github.com/alshaboti/gnmifaucet/faucet_agent/controller"
+	"github.com/alshaboti/gnmifaucet/faucet_agent/gnmi"
+	"github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 

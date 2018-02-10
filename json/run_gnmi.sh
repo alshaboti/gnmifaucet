@@ -1,0 +1,3 @@
+#!/bin/bash
+export PATH=/home/shab/bin:/home/shab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/usr/local/go/bin:$HOME/go/bin:/usr/local/go/bin:$HOME/go/bin
+sudo env PATH=/home/shab/bin:/home/shab/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin:/usr/local/go/bin:/home/pi/go/bin gnmi_set -ca=../cert/client/ca.crt -cert=../cert/client/client.crt -key=../cert/client/client.key -target_name=www.example.com -target_addr=127.0.0.1:8080 -replace=/:@faucet-configuration.json

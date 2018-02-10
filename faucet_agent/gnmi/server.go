@@ -23,7 +23,8 @@ import (
 	"reflect"
 
 	"github.com/google/gnxi/gnmi"
-	"github.com/google/link022/generated/ocstruct"
+        "github.com/alshaboti/gnmifaucet/generated/ocstruct"
+//	"github.com/google/link022/generated/ocstruct"
 
 	log "github.com/golang/glog"
 	pb "github.com/openconfig/gnmi/proto/gnmi"
