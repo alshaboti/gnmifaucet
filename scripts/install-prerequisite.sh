@@ -40,4 +40,9 @@ export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
 
 # Tools for compiling yang to .go (ygot)
- go get github.com/openconfig/ygot/generator
+ go get github.com/openconfig/ygot/generatorexport 
+ 
+ go get github.com/google/gnxi/gnmi_set
+ go get github.com/google/gnxi/gnmi_get
+ 
+ 
