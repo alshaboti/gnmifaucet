@@ -14,13 +14,13 @@ package gnmi
 
 import (
         "errors"
-//#     "fmt"
-//#     "time"
+        "fmt"
+     "time"
 
-//#     "github.com/google/link022/agent/context"
-//#     "github.com/google/link022/agent/service"
-        "github.com/google/alshaboti/gnmifaucet/faucet_agent/syscmd"
-//#     "github.com/google/link022/agent/util/ocutil"
+     "github.com/google/link022/agent/context"
+     "github.com/google/link022/agent/service"
+        "github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
+     "github.com/google/link022/agent/util/ocutil"
         "github.com/alshaboti/gnmifaucet/generated/ocstruct"
         "github.com/openconfig/ygot/ygot"
 
@@ -33,7 +33,7 @@ var (
 
 // handleSet is the callback function of the GNMI SET call.
 // It is triggered by the GNMI server.
-func handleSet(updatedConfig ygot.ValidatedGoStruct, existingConfig ygot.ValidatedGoStruct) error {
+func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
         // TODO: Handle delta change. Currently the GNMI server only supports replacing root.
         officeAP, ok := updatedConfig.(*ocstruct.Device)
         if !ok {

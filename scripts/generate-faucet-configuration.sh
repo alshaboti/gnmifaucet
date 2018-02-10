@@ -23,7 +23,8 @@ OWCA_TOP_MODULE=../modules/faucet-configuration.yang #ietf-mud@2017-10-07.yang
 
 # Output path
 OUTPUT_PACKAGE_NAME=ocstruct
-OUTPUT_FILE_PATH=$HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
+OUTPUT_FILE_PATH=../generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
+#$HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
 
 go run $YANG_CONVERTER \
 -path=$YANG_MODELS,$IETF_MODELS \
@@ -32,6 +33,7 @@ go run $YANG_CONVERTER \
 -output_file=$OUTPUT_FILE_PATH \
 $OWCA_TOP_MODULE
 
+cp $OUTPUT_FILE_PATH $HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
 echo "Yang is compiled to .go file!"
 #-exclude_modules=$IGNORED_MODULES \
 #for ubuntu
