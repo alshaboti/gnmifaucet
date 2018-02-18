@@ -14,13 +14,13 @@ package gnmi
 
 import (
         "errors"
-        "fmt"
-     "time"
+//        "fmt"
+  //      "time"
 
-     "github.com/google/link022/agent/context"
-     "github.com/google/link022/agent/service"
+    //    "github.com/alshaboti/gnmifaucet/faucet_agent/context"
+      //  "github.com/alshaboti/gnmifaucet/faucet_agent/service"
         "github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
-     "github.com/google/link022/agent/util/ocutil"
+//        "github.com/alshaboti/gnmifaucet/faucet_agent/util/ocutil"
         "github.com/alshaboti/gnmifaucet/generated/ocstruct"
         "github.com/openconfig/ygot/ygot"
 
@@ -34,13 +34,13 @@ var (
 // handleSet is the callback function of the GNMI SET call.
 // It is triggered by the GNMI server.
 func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
-        // TODO: Handle delta change. Currently the GNMI server only supports replacing root.
-        officeAP, ok := updatedConfig.(*ocstruct.Device)
+        // TODO: Handle delta change.
+        faucetconf, ok := updatedConfig.(*ocstruct.Device)
         if !ok {
                 return errors.New("new configuration has invalid type")
         }
 
-        configString, err := ygot.EmitJSON(officeAP, &ygot.EmitJSONConfig{
+        configString, err := ygot.EmitJSON(faucetconf, &ygot.EmitJSONConfig{
                 Format: ygot.RFC7951,
                 Indent: "  ",
                 RFC7951Config: &ygot.RFC7951JSONConfig{
@@ -54,7 +54,7 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
 
 
         // Save the succeeded config file.
-        if err := syscmd.SaveToFile(runFolder, apConfigFileName, configString); err != nil {
+        if err := syscmd.SaveToFile(runFolder, faucetConfigFileName, configString); err != nil {
                 return err
         }
         log.Info("Saved the configuration to file.")

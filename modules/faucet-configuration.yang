@@ -25,7 +25,7 @@ module faucet-configuration {
   }
 
   // meta
-  organization "faucet.";
+  organization "faucet";
 
   contact
     "None";

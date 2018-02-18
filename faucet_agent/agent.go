@@ -26,7 +26,7 @@ import (
 
 	"github.com/google/gnxi/utils/credentials"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/context"
-	"github.com/alshaboti/gnmifaucet/faucet_agent/controller"
+	//"github.com/alshaboti/gnmifaucet/faucet_agent/controller"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/gnmi"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
 	"google.golang.org/grpc"
@@ -37,17 +37,14 @@ import (
 )
 
 var (
-	ethINTFName    = flag.String("eth_intf_name", "eth0", "The management network interface on this device.")
-	wlanINTFName   = flag.String("wlan_intf_name", "wlan0", "The WLAN interface on this device for AP radio.")
 	gnmiPort       = flag.Int("gnmi_port", 8080, "The port GNMI server listening on.")
-	controllerAddr = flag.String("controller_address", "", "The WiFi Controller of this device.")
 
 	cmdRunner = syscmd.Runner()
 )
 
 func main() {
 	flag.Parse()
-	log.Info("Link022 agent started.")
+	log.Info("Faucet gnmi agent started!")
 
 	deviceConfig := context.GetDeviceConfig()
 	// Load hostname
@@ -59,9 +56,9 @@ func main() {
 	log.Infof("Hostname = %s.", hostname)
 
 	// Load AP network interface configuration.
-	deviceConfig.ETHINTFName = *ethINTFName
-	deviceConfig.WLANINTFName = *wlanINTFName
-	log.Infof("Eth interface = %s. WLAN interface = %s.", *ethINTFName, *wlanINTFName)
+	// deviceConfig.ETHINTFName = *ethINTFName
+	// deviceConfig.WLANINTFName = *wlanINTFName
+	// log.Infof("Eth interface = %s. WLAN interface = %s.", *ethINTFName, *wlanINTFName)
 
 	// Get gNMI server address.
 	deviceIPv4, err := cmdRunner.DeviceIPv4()
@@ -71,15 +68,6 @@ func main() {
 	gNMIServerAddr := fmt.Sprintf("%s:%d", deviceIPv4, *gnmiPort)
 	deviceConfig.GNMIServerAddr = gNMIServerAddr
 
-	// Load controlle Info.
-	deviceConfig.ControllerAddr = *controllerAddr
-	if *controllerAddr != "" {
-		log.Infof("AP controller = %s", *controllerAddr)
-		go controller.Connect()
-	} else {
-		log.Info("No AP controller assigned.")
-	}
-
 	// Create GNMI server.
 	gnmiServer, err := gnmi.NewServer()
 	if err != nil {
@@ -88,10 +76,10 @@ func main() {
 
 	// Start the GNMI server.
 	var opts []grpc.ServerOption
-	if *controllerAddr == "" {
+	//if *controllerAddr == "" {
 		// Add credential check if no controller specified.
-		opts = credentials.ServerCredentials()
-	}
+	opts = credentials.ServerCredentials()
+	//}
 	g := grpc.NewServer(opts...)
 	pb.RegisterGNMIServer(g, gnmiServer)
 	reflection.Register(g)

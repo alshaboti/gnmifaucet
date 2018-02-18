@@ -37,6 +37,7 @@ cp $OUTPUT_FILE_PATH $HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUT
 echo "Yang is compiled to .go file!"
 #-exclude_modules=$IGNORED_MODULES \
 #for ubuntu
+mv $GOPATH/bin/faucet_agent $GOPATH/bin/faucet_agent_bak
 env GOOS=linux GOARCH=amd64 go build -o $GOPATH/bin/faucet_agent  ../faucet_agent/agent.go
 
 #for pi

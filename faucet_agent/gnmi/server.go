@@ -24,22 +24,21 @@ import (
 
 	"github.com/google/gnxi/gnmi"
         "github.com/alshaboti/gnmifaucet/generated/ocstruct"
-//	"github.com/google/link022/generated/ocstruct"
 
 	log "github.com/golang/glog"
 	pb "github.com/openconfig/gnmi/proto/gnmi"
 )
 
 const (
-	runFolder        = "/var/run/link022"
-	apConfigFileName = "link022.conf"
+	runFolder        = "/etc/ryu/faucet"
+	faucetConfigFileName = "faucet_gnmi.json"
 )
 
 var (
-	// link022ModelData is a list of models supported in this GNMI server.
-	link022ModelData = []*pb.ModelData{{
-		Name:         "office-ap",
-		Organization: "Google, Inc.",
+	// faucetYamlModelData is a list of models supported in this GNMI server.
+	faucetYamlModelData = []*pb.ModelData{{
+		Name:         "faucet-configuration",
+		Organization: "faucet",
 		Version:      "0.1.0",
 	}}
 )
@@ -59,7 +58,7 @@ func NewServer() (*Server, error) {
 	}
 
 	// Create the GNMI server.
-	model := gnmi.NewModel(link022ModelData,
+	model := gnmi.NewModel(faucetYamlModelData,
 		reflect.TypeOf((*ocstruct.Device)(nil)),
 		ocstruct.SchemaTree["Device"],
 		ocstruct.Unmarshal,
@@ -78,7 +77,7 @@ func NewServer() (*Server, error) {
 }
 
 func loadExistingConfigContent() ([]byte, error) {
-	existingConfigFilePath := path.Join(runFolder, apConfigFileName)
+	existingConfigFilePath := path.Join(runFolder, faucetConfigFileName)
 
 	if _, err := os.Stat(existingConfigFilePath); os.IsNotExist(err) {
 		log.Info("No existing configuration found.")
