@@ -6,22 +6,14 @@
 # To use this, run thr scripts directory:
 #    ./install-yang-modules.sh
 
-<<<<<<< HEAD
-#install go
+#install go ubuntu
 wget https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
-#go1.7.linux-armv6l.tar.gz
 sudo tar -C /usr/local -xzf go1.7.linux-amd64.tar.gz
-#go1.7.linux-armv6l.tar.gz go1.2.1.linux-amd64.tar.gz
-=======
-#install go 
-#for pi
-wget https://storage.googleapis.com/golang/go1.7.linux-armv6l.tar.gz
-sudo tar -C /usr/local -xzf go1.7.linux-armv6l.tar.gz
-# for linux
-# wget https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz
-# sudo tar -C /usr/local -xzf go1.7.linux-amd64.tar.gz
+#=======
+#install go for pi
+#wget https://storage.googleapis.com/golang/go1.7.linux-armv6l.tar.gz
+#sudo tar -C /usr/local -xzf go1.7.linux-armv6l.tar.gz
 
->>>>>>> 708fca7c47690badbd7135f453c17fbd4d13e4ba
 export PATH=$PATH:/usr/local/go/bin
 
 # OpenConfig modules
@@ -40,4 +32,4 @@ export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin
 
 # Tools for compiling yang to .go (ygot)
- go get github.com/openconfig/ygot/generator
+go get github.com/openconfig/ygot/generator
