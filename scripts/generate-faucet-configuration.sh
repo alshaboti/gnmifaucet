@@ -43,14 +43,14 @@ env GOOS=linux GOARCH=amd64 go build -o $GOPATH/bin/faucet_agent  ../faucet_agen
 #env GOOS=linux GOARCH=arm CC=arm-linux-gnueabi-gcc go build -o $GOPATH/bin/faucet_agent  ../faucet_agent/agent.go
 #$HOME/link022/agent/agent.go
 
-echo ".go file and agent.go compiled  to binary file !"
+echo -e ".go file and agent.go compiled  to binary file ! \n \n"
 
 
 
-echo "run faucet_agent from gnmiifaucet folder by:"
+echo -e "run faucet_agent from gnmiifaucet folder by: \n"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin"
-echo "sudo env PATH=$PATH faucet_agent -ca=cert/server/ca.crt -cert=cert/server/server.crt -key=cert/server/server.key  -gnmi_port=8080 -logtostderr"
+echo "sudo env PATH=$PATH faucet_agent -ca=../cert/server/ca.crt -cert=../cert/server/server.crt -key=../cert/server/server.key  -gnmi_port=8080 -logtostderr"
 
-echo "and gnmi_set from gnmifuacet/json folder using"
+echo -e "\n \n gnmi_set from gnmifuacet/json folder using: \n"
 echo "export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin"
 echo "sudo env PATH=$PATH gnmi_set -ca=../cert/client/ca.crt -cert=../cert/client/client.crt -key=../cert/client/client.key -target_name=www.example.com -target_addr=192.168.11.5:8080 -replace=/:@faucet-configuration.json"

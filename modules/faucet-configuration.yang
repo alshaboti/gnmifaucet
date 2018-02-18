@@ -44,6 +44,12 @@ module faucet-configuration {
     description
       "Top-level grouping for faucet configuration.";
 
+leaf version {
+    type uint8;
+    default "2";
+    description "The faucet yang version.";
+     }       
+
 list dps{
     description "This is a dps list";
     key "dp-name";
@@ -105,9 +111,17 @@ list dps{
       description "This is a list of vlans.";
        key "vid";
       ordered-by user;
+
       leaf vid {
-        type uint8;
+        type uint16;
         }
+
+    leaf max_hosts {
+        type uint16;
+        default "255";
+        description "The MTU of the interface.";
+        }          
+
      leaf name{
         type string {
           length "1..64";

@@ -1,7 +1,9 @@
 
-{"vlans": [
+{"version": 2,
+"vlans": [
          {"vid":100, 
-          "name":"clock"}
+          "name":"clock",
+          "max_hosts": 100}
         ],
 "acls":[
     {
