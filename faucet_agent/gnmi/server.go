@@ -35,7 +35,7 @@ const (
 )
 
 var (
-	// faucetYamlModelData is a list of models supported in this GNMI server.
+	// faucetYamlModelData is a list of yang models supported in this GNMI server.
 	faucetYamlModelData = []*pb.ModelData{{
 		Name:         "faucet-configuration",
 		Organization: "faucet",

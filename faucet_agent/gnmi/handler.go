@@ -14,7 +14,7 @@ package gnmi
 
 import (
         "errors"
-//        "fmt"
+        "fmt"
   //      "time"
 
     //    "github.com/alshaboti/gnmifaucet/faucet_agent/context"
@@ -52,6 +52,10 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
         }
         log.Infof("Received a new configuration for fuacet:\n%v\n", configString)
 
+        // check facuet config
+        yamlVersion := *faucetconf.Version
+        fmt.Println("Version is ", yamlVersion)
+        
 
         // Save the succeeded config file.
         if err := syscmd.SaveToFile(runFolder, faucetConfigFileName, configString); err != nil {
@@ -60,3 +64,5 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
         log.Info("Saved the configuration to file.")
         return nil
 }
+
+
