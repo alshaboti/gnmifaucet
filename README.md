@@ -1,7 +1,8 @@
-# gnmi for faucet
-Utalize link022 gnmi server and anget to build an agnet for faucet.
+# gnmi agent for faucet configuration
+Gnmi agent allows you to configure faucet.yaml file remotely without SSH to faucet host. It use gnmi to replace/update faucet.yaml file. 
 
-You should install link022 and then follow instruction here. 
+Project still in development stage. 
+To test it follow the steps below: 
 
 STEPS: 
 - Install yang moduls,go,ygot,gnmi_set, gnmi_get prerequisites 
@@ -22,8 +23,8 @@ sudo env PATH=$PATH faucet_agent -ca=cert/server/ca.crt -cert=cert/server/server
 ```
 export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
 cd json
-sudo env PATH=$PATH gnmi_set -ca=../cert/client/ca.crt -cert=../cert/client/client.crt -key=../cert/client/client.key -target_name=www.example.com -target_addr=192.168.11.5:8080 -replace=/:@faucet-configuration.json
+sudo env PATH=$PATH gnmi_set -ca=../cert/client/ca.crt -cert=../cert/client/client.crt -key=../cert/client/client.key -target_name=www.example.com -target_addr=<ip>:8080 -replace=/:@faucet-configuration.json
 ```
 # TODO:
-- Remove all link022 params,files, and make a core gnmi agent for faucet you will need to update script folder scripts.
-- Update the agent to config faucet.yaml file.
+- create faucet.yaml file based on the received json file. 
+- update faucet.yaml file based on the gnmi_set update command. 
