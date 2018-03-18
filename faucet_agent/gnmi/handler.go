@@ -67,7 +67,7 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
 	//*Yaml marshal doesn't ignore null value,
 	//I tried with omiteempty but need modification in ocstruct
 	yamlbyte, err := yaml.Marshal(faucetconfObj)
-
+	// remove lines that include null value
 	fmt.Print(removeNull(string(yamlbyte)))
 	if err != nil {
 		fmt.Print(string(yamlbyte))
