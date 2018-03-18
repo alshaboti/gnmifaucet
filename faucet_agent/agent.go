@@ -26,7 +26,6 @@ import (
 
 	"github.com/google/gnxi/utils/credentials"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/context"
-	//"github.com/alshaboti/gnmifaucet/faucet_agent/controller"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/gnmi"
 	"github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
 	"google.golang.org/grpc"
@@ -55,10 +54,6 @@ func main() {
 	deviceConfig.Hostname = hostname
 	log.Infof("Hostname = %s.", hostname)
 
-	// Load AP network interface configuration.
-	// deviceConfig.ETHINTFName = *ethINTFName
-	// deviceConfig.WLANINTFName = *wlanINTFName
-	// log.Infof("Eth interface = %s. WLAN interface = %s.", *ethINTFName, *wlanINTFName)
 
 	// Get gNMI server address.
 	deviceIPv4, err := cmdRunner.DeviceIPv4()

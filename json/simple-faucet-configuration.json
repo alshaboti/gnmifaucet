@@ -1,0 +1,76 @@
+
+{"version": 2,
+"vlans": [
+         {"vid":100, 
+          "name":"clock",
+          "max_hosts": 100}
+        ],
+"acls":[
+    {
+    "acl-name": "acl1",
+    "acle": [
+     {
+     "acle-name": "rule1",
+     "actions": {"allow": 1}
+     }    
+    ]
+    },
+    {
+    "acl-name": "acl2",
+    "acle": [
+    {
+     "acle-name": "rule1",
+     "actions": {"allow": 1,
+                 "mirror": 2},
+
+     "match": {
+      "dl_type": "0x800",
+        "ipv4_src": "192.168.1.22",
+        "ipv4_dst": "192.168.1.1",
+       "tcp_dst": 23
+     }
+   },
+    {
+     "acle-name": "rule2",
+     "actions": {"output": {"port": 3}
+                  },
+
+     "match": {
+         "dl_src": "ff:cc:ee:33:33:99"    
+      
+     }
+   }    
+   ]
+   }
+  ],
+"dps":[
+  { 
+  "dp_name": "sw1",
+  "dp_id": "0x665544332211",
+  "hardware": "Open vSwitch",
+  "interfaces" :
+  [{
+   "number": 1,
+   "name": "port1",
+   "description": "first port",
+   "acl_in": "acl2"
+   },
+   {
+   "number": 2,
+   "name": "port2",
+   "description": "second port",
+   "acl_in": "acl2"
+   },
+   {
+   "number": 3,
+   "name": "port3",
+   "description": "third port",
+   "acl_in": "acl1"
+   }
+
+   ]
+  }
+
+ ]
+}
+

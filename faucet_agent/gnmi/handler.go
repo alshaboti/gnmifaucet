@@ -13,56 +13,65 @@ limitations under the License.
 package gnmi
 
 import (
-        "errors"
-        "fmt"
-  //      "time"
+	"errors"
+	"fmt"
 
-    //    "github.com/alshaboti/gnmifaucet/faucet_agent/context"
-      //  "github.com/alshaboti/gnmifaucet/faucet_agent/service"
-        "github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
-//        "github.com/alshaboti/gnmifaucet/faucet_agent/util/ocutil"
-        "github.com/alshaboti/gnmifaucet/generated/ocstruct"
-        "github.com/openconfig/ygot/ygot"
+	"github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
+	"github.com/alshaboti/gnmifaucet/generated/ocstruct"
+	"github.com/openconfig/ygot/ygot"
+	yaml "gopkg.in/yaml.v2"
 
-        log "github.com/golang/glog"
+	log "github.com/golang/glog"
 )
 
 var (
-        cmdRunner = syscmd.Runner()
+	cmdRunner = syscmd.Runner()
 )
 
 // handleSet is the callback function of the GNMI SET call.
 // It is triggered by the GNMI server.
 func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
-        // TODO: Handle delta change.
-        faucetconf, ok := updatedConfig.(*ocstruct.Device)
-        if !ok {
-                return errors.New("new configuration has invalid type")
-        }
+	// TODO: Handle delta change.
+	faucetconfObj, ok := updatedConfig.(*ocstruct.Device)
+	if !ok {
+		return errors.New("new configuration has invalid type")
+	}
 
-        configString, err := ygot.EmitJSON(faucetconf, &ygot.EmitJSONConfig{
-                Format: ygot.RFC7951,
-                Indent: "  ",
-                RFC7951Config: &ygot.RFC7951JSONConfig{
-                        AppendModuleName: false,
-                },
-        })
-        if err != nil {
-                return err
-        }
-        log.Infof("Received a new configuration for fuacet:\n%v\n", configString)
+	// serialized the object to json string
+	faucetConfigJSON, err := ygot.EmitJSON(faucetconfObj, &ygot.EmitJSONConfig{
+		Format: ygot.RFC7951,
+		Indent: "  ",
+		RFC7951Config: &ygot.RFC7951JSONConfig{
+			AppendModuleName: false,
+		},
+	})
 
-        // check facuet config
-        yamlVersion := *faucetconf.Version
-        fmt.Println("Version is ", yamlVersion)
-        
+	if err != nil {
+		return err
+	}
+	log.Infof("Received a new configuration for fuacet:\n%v\n", faucetConfigJSON)
 
-        // Save the succeeded config file.
-        if err := syscmd.SaveToFile(runFolder, faucetConfigFileName, configString); err != nil {
-                return err
-        }
-        log.Info("Saved the configuration to file.")
-        return nil
+	// check facuet config
+//	yamlVersion := *faucetconfObj.Version
+//	fmt.Println("Version is ", yamlVersion)
+	//vlans
+//	keys := []uint16{}
+//	for key := range faucetconfObj.Vlans {
+//		keys = append(keys, key)
+//		fmt.Println(*faucetconfObj.Vlans[key].Vid)
+//	}
+
+	//*Yaml marshal doesn't ignore null value,
+	//I tried with omiteempty but need modification in ocstruct
+	yamlbyte, err := yaml.Marshal(faucetconfObj)
+	fmt.Print(string(yamlbyte))
+	if err != nil {
+		fmt.Print(string(yamlbyte))
+	}
+	// Save the succeeded config file.
+	if err := syscmd.SaveToFile(runFolder, faucetConfigFileName, faucetConfigJSON); err != nil {
+		return err
+	}
+	log.Info("Saved the configuration to file.")
+	return nil
 }
-
-

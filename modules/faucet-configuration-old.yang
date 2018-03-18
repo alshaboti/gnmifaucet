@@ -1,4 +1,4 @@
-module faucet-configuration {
+module faucet-configuration-old {
 
   yang-version "1";
 
@@ -20,6 +20,9 @@ module faucet-configuration {
     prefix eth;
   }
 
+ import ietf-packet-fields {
+    prefix pf;
+  }
 
   // meta
   organization "faucet";
@@ -36,17 +39,7 @@ module faucet-configuration {
     reference "0.1.0";
   }
 
- typedef hex{
-     type string {
-       pattern '0x[0-9a-fA-F]+';
-     }
-}
 
-//typedef ipv4-add{
-//    type string{
-//      pattern '(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])/(([1-2][0-9])|(3[0-2])|([0-9]))|((([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(%[\p{N}\p{L}]+)?)'
-//  }
-//}
  grouping faucet-top {
     description
       "Top-level grouping for faucet configuration.";
@@ -59,24 +52,19 @@ leaf version {
 
 list dps{
     description "This is a dps list";
-    key "dp_id";
+    key "dp-name";
     ordered-by user;
-    unique "dp_name";
+    unique "dp-id";
 
-    leaf dp_name{
+    leaf dp-name{
         type string {
           length "1..64";
         }
        }
-    leaf desciption{
-        type string {
-          length "1..255";
+
+    leaf dp-id {
+        type yang:mac-address;
         }
-       }
-   leaf dp_id {
-       type hex;
- // type uint64;
-   }       
 
     leaf hardware{
         type string {
@@ -106,7 +94,7 @@ list dps{
         }
     }
 
-    leaf acl_in {
+    leaf acl-in {
      type leafref {
        path "/faucet-conf:acls/acls:acl-name";
      }
@@ -184,6 +172,7 @@ list acls{
             path "/faucet-conf:dps/interfaces/number";
            }         
          }
+         
          container output{
           leaf port{
            type leafref {
@@ -196,61 +185,38 @@ list acls{
       } // end actions container   
 
    container match{
-
-  //mac
-          leaf dl_type_name {
-          type eth:ethertype;
-         }   
-
-        leaf dl_type {
-          type hex;
-         }   
-        leaf dl_src {
-          type yang:mac-address;
-         }   
-        leaf dl_dst {
-          type yang:mac-address;
-         }   
-//ip 
-      leaf nw_proto {
-        type uint8;
-      }
-//ipv4
-      leaf ipv4_src {
-        type inet:ipv4-address;
-      }
-      leaf ipv4_dst {
-        type inet:ipv4-address;
-      }
-//ipv6
-      leaf ipv6_src {
-        type inet:ipv6-address;
-      }
-      leaf ipv6_dst {
-        type inet:ipv6-address;
-      }
-// tcp/udp
-      leaf tcp_src {
-        type inet:port-number;
-      }
-      leaf tcp_dst {
-        type inet:port-number;
-      }
-      leaf udp_src {
-        type inet:port-number;
-      }
-      leaf udp_dst {
-        type inet:port-number;
-        }   
-
+    container ethacl{
+       uses pf:acl-eth-header-fields;
+     description 
+        "eth acl";
+    }
+   container ipv4acl {
+    uses pf:acl-ipv4-header-fields;
+    leaf source-ipv4{
+         type inet:ipv4-address;
+         }
+    leaf destination-ipv4{
+         type inet:ipv4-address;
+         }
+      description
+           "Rule set that supports IPv4 headers.";
+     }
+  container tcpacl{
+    uses pf:acl-tcp-header-fields;
+        leaf port {
+          type inet:port-number;
+          mandatory true;
+          description
+            "Port number along with operator on which to
+             match.";
+        }
+    }
  }//match cont
  }//acle
 } //acls
 
   }//end group
-
   uses faucet-top;
 }
-
 
 
