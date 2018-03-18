@@ -59,9 +59,9 @@ leaf version {
 
 list dps{
     description "This is a dps list";
-    key "dp_id";
+    key "dp_name";
     ordered-by user;
-    unique "dp_name";
+    unique "dp_id";
 
     leaf dp_name{
         type string {

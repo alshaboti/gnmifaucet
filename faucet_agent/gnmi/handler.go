@@ -13,8 +13,10 @@ limitations under the License.
 package gnmi
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/alshaboti/gnmifaucet/faucet_agent/syscmd"
 	"github.com/alshaboti/gnmifaucet/generated/ocstruct"
@@ -38,6 +40,7 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
 	}
 
 	// serialized the object to json string
+
 	faucetConfigJSON, err := ygot.EmitJSON(faucetconfObj, &ygot.EmitJSONConfig{
 		Format: ygot.RFC7951,
 		Indent: "  ",
@@ -52,26 +55,41 @@ func handleSet(updatedConfig ygot.ValidatedGoStruct) error {
 	log.Infof("Received a new configuration for fuacet:\n%v\n", faucetConfigJSON)
 
 	// check facuet config
-//	yamlVersion := *faucetconfObj.Version
-//	fmt.Println("Version is ", yamlVersion)
+	//	yamlVersion := *faucetconfObj.Version
+	//	fmt.Println("Version is ", yamlVersion)
 	//vlans
-//	keys := []uint16{}
-//	for key := range faucetconfObj.Vlans {
-//		keys = append(keys, key)
-//		fmt.Println(*faucetconfObj.Vlans[key].Vid)
-//	}
+	//	keys := []uint16{}
+	//	for key := range faucetconfObj.Vlans {
+	//		keys = append(keys, key)
+	//		fmt.Println(*faucetconfObj.Vlans[key].Vid)
+	//	}
 
 	//*Yaml marshal doesn't ignore null value,
 	//I tried with omiteempty but need modification in ocstruct
 	yamlbyte, err := yaml.Marshal(faucetconfObj)
-	fmt.Print(string(yamlbyte))
+
+	fmt.Print(removeNull(string(yamlbyte)))
 	if err != nil {
 		fmt.Print(string(yamlbyte))
 	}
+
 	// Save the succeeded config file.
 	if err := syscmd.SaveToFile(runFolder, faucetConfigFileName, faucetConfigJSON); err != nil {
 		return err
 	}
 	log.Info("Saved the configuration to file.")
 	return nil
+}
+
+func removeNull(yamlString string) string {
+	var str string
+	scanner := bufio.NewScanner(strings.NewReader(yamlString))
+	for scanner.Scan() {
+		if !strings.Contains(scanner.Text(), "null") {
+			str += scanner.Text() + "\n"
+		}
+
+	}
+	return str
+
 }
