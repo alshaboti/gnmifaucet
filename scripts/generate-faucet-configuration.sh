@@ -33,7 +33,12 @@ go run $YANG_CONVERTER \
 -output_file=$OUTPUT_FILE_PATH \
 $OWCA_TOP_MODULE
 
-cp $OUTPUT_FILE_PATH $HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
+#cp $OUTPUT_FILE_PATH $HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
+
+#to support yaml, add yaml tag to after each path tag to support underscore character. 
+cat $OUTPUT_FILE_PATH | sed -r "s/(\`path:)(.*?)( )(.*?)/\1\2 yaml:\2\3\4/g" > $HOME/go/src/github.com/alshaboti/gnmifaucet/generated/$OUTPUT_PACKAGE_NAME/$OUTPUT_PACKAGE_NAME.go
+
+
 echo "Yang is compiled to .go file!"
 #-exclude_modules=$IGNORED_MODULES \
 #for ubuntu
