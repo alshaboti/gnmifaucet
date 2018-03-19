@@ -51,7 +51,7 @@ module faucet-configuration {
     description
       "Top-level grouping for faucet configuration.";
 
-leaf ver_sion {
+leaf version {
     type uint8;
     default "2";
     description "The faucet yang version.";
