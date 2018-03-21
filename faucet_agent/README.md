@@ -1,4 +1,3 @@
-# Agent
+# Faucet agent
 
-This directory contains the WiFi management component that runs on the
-Link022 Pi AP.
+This directory contains the faucet agent component that runs on the faucet controller machine. 
